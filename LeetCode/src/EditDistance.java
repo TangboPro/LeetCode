@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.concurrent.*;
 
 /**
  * Created by Tang on 2017/9/
@@ -73,7 +76,18 @@ public class EditDistance {
         }
         return dp[m];
     }
-    public static void main(String[] args){
-        System.out.print(new EditDistance().minDistanceex("a","b"));
+    static class sf implements Callable{
+
+        @Override
+        public String call() throws Exception {
+            return "this is call able";
+        }
+    }
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        LinkedHashMap set=new LinkedHashMap<Integer,Integer>();
+        //System.out.print(new EditDistance().minDistanceex("a","b"));
+        ExecutorService executorService= Executors.newCachedThreadPool();
+        Future future=executorService.submit(new sf());
+        System.out.print(future.get());
     }
 }
